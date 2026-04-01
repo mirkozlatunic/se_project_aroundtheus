@@ -57,7 +57,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(([user, initialCards]) => {
     userInfo.setUserInfo(user);
     userID = user._id;
-    userInfo.setUserInfo(user);
 
     cardList = new Section(
       {
@@ -143,18 +142,12 @@ function createCard({ name, link, isLiked, _id, userId, ownerId }) {
 
 const previewImagePopup = new PopupWithImage({
   popupSelector: "#preview-modal",
-  handleFormSubmit: handleProfileEditSubmit,
 });
 previewImagePopup.setEventListeners();
 
 // =============================================================================
 // Profile Popup
 // =============================================================================
-
-function handleProfileEditSubmit({ name, about }) {
-  newUser.setUserInfo(name, about);
-  profilePopup.close();
-}
 
 const profilePopup = new PopupWithForm({
   popupSelector: "#profile-edit-modal",

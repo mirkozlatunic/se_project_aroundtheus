@@ -49,7 +49,7 @@ export default class Card {
   }
 
   _hideDeleteButton() {
-    if (this._ownerId !== this._userId) {
+    if (this._ownerId !== this._myId) {
       this._cardElement.querySelector(".card__delete-button").remove();
     }
   }
@@ -88,7 +88,7 @@ export default class Card {
     const cardImage = this._cardElement.querySelector(".card__image");
     cardImage.alt = `Photo of ${this._name}`;
     cardImage.src = this._link;
-    this._cardElement.id = this.imageId;
+    this._cardElement.id = this._id;
     this._cardElement.querySelector(".card__title").textContent = this._name;
   }
 
