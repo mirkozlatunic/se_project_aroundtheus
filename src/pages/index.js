@@ -6,27 +6,12 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import "../pages/index.css";
 import {
-  // initialCards,
   profileEditButton,
   profileAddButton,
-  profileEditModal,
-  addCardModal,
-  previewImageModal,
-  profileModalCloseButton,
-  addCardModalCloseButton,
-  previewModalCloseButton,
-  profileTitle,
-  profileDescription,
   modalTitleInput,
   modalDescriptionInput,
   profileEditForm,
   addCardForm,
-  cardListEl,
-  cardTemplate,
-  cardTitleInput,
-  cardUrlInput,
-  previewImage,
-  previewFooter,
   formValidationConfig,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
@@ -61,13 +46,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     cardList = new Section(
       {
         items: initialCards,
-        renderer: ({ name, link, isLiked, _id, userId, ownerId }) => {
+        renderer: ({ name, link, isLiked, _id, ownerId }) => {
           const newCard = createCard({
             name,
             link,
             isLiked,
             _id,
-            userId,
             ownerId,
           });
           cardList.addItem(newCard);
@@ -84,7 +68,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 // =============================================================================
 
 function handleLikeClick(cardInstance) {
-  if (cardInstance._likes) {
+  if (cardInstance.isLiked()) {
     api
       .unlikeCard(cardInstance._id)
       .then((res) => {
@@ -125,9 +109,9 @@ function handleDeleteClick(card) {
   });
 }
 
-function createCard({ name, link, isLiked, _id, userId, ownerId }) {
+function createCard({ name, link, isLiked, _id, ownerId }) {
   const cardElement = new Card(
-    { name, link, isLiked, _id, userId, ownerId },
+    { name, link, isLiked, _id, ownerId },
     userID,
     "#card-template",
     handleCardClick,
@@ -167,7 +151,7 @@ const profilePopup = new PopupWithForm({
   loadingButtonText: "Saving...",
 });
 
-profilePopup.setEventListener();
+profilePopup.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
@@ -199,7 +183,6 @@ const editAvatarValidator = new FormValidator(
 editFormValidator.enableValidation();
 editAvatarValidator.enableValidation();
 
-export { previewImage, previewFooter, previewImageModal };
 
 // =============================================================================
 // Add Card Popup
@@ -224,8 +207,7 @@ const addCardPopup = new PopupWithForm({
   loadingButtonText: "Saving...",
 });
 
-addCardPopup.close();
-addCardPopup.setEventListener();
+addCardPopup.setEventListeners();
 
 profileAddButton.addEventListener("click", () => {
   addFormValidator.resetValidation();
@@ -237,7 +219,6 @@ profileAddButton.addEventListener("click", () => {
 // =============================================================================
 
 const avatarEditButton = document.querySelector(".profile__image-overlay");
-const profileAvatar = document.querySelector("#profile-avatar");
 
 const editAvatarPopup = new PopupWithForm({
   popupSelector: "#edit-avatar-modal",
@@ -257,8 +238,7 @@ const editAvatarPopup = new PopupWithForm({
   loadingButtonText: "Saving...",
 });
 
-editAvatarPopup.close();
-editAvatarPopup.setEventListener();
+editAvatarPopup.setEventListeners();
 
 avatarEditButton.addEventListener("click", () => {
   editAvatarValidator.resetValidation();

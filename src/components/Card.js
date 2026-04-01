@@ -1,6 +1,6 @@
 export default class Card {
   constructor(
-    { name, link, isLiked, _id, userId, ownerId },
+    { name, link, isLiked, _id, ownerId },
     myId,
     cardSelector,
     handleCardClick,
@@ -11,7 +11,6 @@ export default class Card {
     this._link = link;
     this._likes = isLiked;
     this._id = _id;
-    this._userId = userId;
     this._ownerId = ownerId;
     this._myId = myId;
     this._cardSelector = cardSelector;
@@ -22,6 +21,10 @@ export default class Card {
 
   getId() {
     return this._id;
+  }
+
+  isLiked() {
+    return this._likes;
   }
 
   _getData() {

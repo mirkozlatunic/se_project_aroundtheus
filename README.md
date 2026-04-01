@@ -45,3 +45,7 @@ Delete Card
 ## Improvements
 
 - [x] Preview Image Footer adapt to same as Card for more visibility
+- [x] Added public `isLiked()` getter to Card — removed direct access to private `_likes` property from outside the class
+- [x] Unified popup event listener API — renamed `setEventListener()` to `setEventListeners()` across all popup classes for consistency
+- [x] Removed unused `userId` parameter from Card constructor and propagation chain
+- [x] Removed unused imports and dead code from entry point (`index.js`)
